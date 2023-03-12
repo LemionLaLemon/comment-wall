@@ -1,41 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Lemonsite Commentwall</title>
-  <style>
-    background-color: #905288;
-  </style>
-  <style>
-    #message-list {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-    #message-list li {
-      margin: 10px 0;
-      padding: 5px;
-      border: 1px solid black;
-      background-color: #905288;
-    }
-  </style>
+	<title>My Gallery</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		header {
+			background-color: #333;
+			color: white;
+			padding: 10px;
+			text-align: center;
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		#upload-form {
+			display: none;
+			margin: 10px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			background-color: #f5f5f5;
+		}
+		#upload-form label {
+			display: block;
+			margin-bottom: 5px;
+		}
+		#upload-form input[type=file] {
+			margin-bottom: 10px;
+		}
+		#upload-form input[type=submit] {
+			background-color: #333;
+			color: white;
+			border: none;
+			padding: 10px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
 </head>
-<div id="disqus_thread"></div>
-<script>
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-    /*
-    var disqus_config = function () {
-    this.page.url = https://lemonsitechatwall.netlify.app/;  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = FormIDT; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    */
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://lemonsitecommentwall.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript"></a></noscript>
+<body>
+	<header>
+		<h1>My Gallery</h1>
+	</header>
+	<div id="secret-form">
+		<label for="secret-code">Enter secret code to access upload:</label>
+		<input type="password" id="secret-code" name="secret-code">
+		<button type="button" onclick="checkCode()">Submit</button>
+	</div>
+	<div id="gallery">
+		<img src="image.jpg" alt="Example image">
+	</div>
+	<div id="upload-form">
+		<form action="upload.php" method="post" enctype="multipart/form-data">
+			<label for="image">Choose image to upload:</label>
+			<input type="file" id="image" name="image">
+			<input type="submit" value="Upload">
+		</form>
+	</div>
+	<script>
+		function checkCode() {
+			var code = document.getElementById("secret-code").value;
+			if (code == "mysecretpassword") {
+				document.getElementById("secret-form").style.display = "none";
+				document.getElementById("upload-form").style.display = "block";
+			} else {
+				alert("Incorrect code, please try again.");
+			}
+		}
+	</script>
+</body>
+</html>
